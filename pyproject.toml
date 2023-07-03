@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "fisherapp"
 version = "0.1.0"
-description = ""
+description = "Everything needed for the development of the Fishing App for Abenakis Fishers."
 authors = ["Nassim Massaudi <n.nassim4100@gmail.com>"]
 readme = "README.md"
 
@@ -9,6 +9,9 @@ readme = "README.md"
 python = "^3.10"
 uvicorn = "^0.22.0"
 fastapi = "^0.99.0"
+sqlalchemy = "^2.0.17"
+python-dotenv = "^1.0.0"
+psycopg2-binary = "^2.9.6"
 
 
 [build-system]

@@ -1,9 +1,9 @@
-from typing import Optional, List
-from fastapi import FastAPI, Path, Query
-from pydantic import BaseModel
+from fastapi import FastAPI
+from api import users, fish, events
 
-
-description = """
+app = FastAPI(
+    title="Carnet du Pêcheur API",
+    description="""
 ## Items
 
 You can **read items**.
@@ -21,12 +21,8 @@ You will be able to:
 * **Add Events** (_not implemented_).
 * **Read Events** (_not implemented_).
 
-"""
-
-app = FastAPI(
-    title="Carnet du Pêcheur API",
-    description=description,
-    summary="Everything needed for the development of the Fishing App for Abenakis",
+""",
+    summary="Everything needed for the development of the Fishing App for Abenakis Fishers.",
     version="0.0.1",
     contact={
         "name": "Nassim Massaudi",
@@ -38,31 +34,8 @@ app = FastAPI(
     },
 )
 
-users = []
 
+app.include_router(users.router, prefix="/api/v1")
+app.include_router(fish.router, prefix="/api/v1")
+app.include_router(events.router, prefix="/api/v1")
 
-
-class User(BaseModel):
-    email: str
-    is_active: bool
-
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-@app.get("/users/{id}")
-async def get_users():
-    return users
-
-@app.get("/users/{id}")
-async def get_user(
-    id: int = Path(..., description="The ID of the user you want to retrieve", gt=2),
-    q: str = Query(None, max_length=5)
-    ):
-    return {"user": users[id], "query": q} 
-
-@app.post("/users")
-async def create_users(user : User):
-    users.append(user)
-    return {"message": "User created."} 
