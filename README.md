@@ -5,7 +5,7 @@
 
 Fisher BackEnd API for the Abenaki Fishing App "Carnet du pêcheur"
 
-![Profile Picture](https://avatars.githubusercontent.com/u/59816558?v=4)
+![Profile Picture](https://avatars.githubusercontent.com/u/63957268?s=400&v=4)
 
 ## Installation
 
@@ -22,6 +22,14 @@ To use the Fisher API, run the following command:
 uvicorn main:app --reload
 ```
 
+## Documentation
+
+The Fisher API documentation is available at the following URL:
+
+```
+http://localhost:8000/docs
+```
+
 ## Technologies
 
 The Fisher API is built using the following technologies:
@@ -31,9 +39,15 @@ The Fisher API is built using the following technologies:
 - SQLAlchemy
 - PostgreSQL
 
-## Contribution Guidelines
+## Features
 
-We welcome contributions to improve the Fisher API. Please create an issue or submit a pull request for any changes you would like to propose.
+The Fisher API provides the following features:
+
+- Create, Read, Update, and Delete (CRUD) operations for the following models:
+    - User
+    - Fish
+    - Event
+
 
 ## Test Instructions
 

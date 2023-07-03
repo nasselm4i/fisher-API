@@ -15,7 +15,7 @@ class Event(BaseModel):
     fishing_duration: int
     
 events = []
-    
+
 @router.get("/events")
 def get_events():
     return events

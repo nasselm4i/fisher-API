@@ -1,7 +1,11 @@
 import fastapi
 from pydantic import BaseModel
+from starlette.responses import RedirectResponse
 
 router = fastapi.APIRouter()
+@router.get("/", include_in_schema=False)
+async def docs_redirect():
+    return RedirectResponse(url="/docs")
 
 class User(BaseModel):
     id: int
@@ -9,6 +13,7 @@ class User(BaseModel):
     password: bool
     
 users = []
+
 
 @router.get("/users")
 async def get_users():

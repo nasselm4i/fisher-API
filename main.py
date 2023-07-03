@@ -22,7 +22,7 @@ You will be able to:
 * **Read Events** (_not implemented_).
 
 """,
-    summary="Everything needed for the development of the Fishing App for Abenakis Fishers.",
+    summary="Everything needed for the development of the Fishing App for Abenakis Fishers. 🚀",
     version="0.0.1",
     contact={
         "name": "Nassim Massaudi",
@@ -34,8 +34,7 @@ You will be able to:
     },
 )
 
-
-app.include_router(users.router, prefix="/api/v1")
-app.include_router(fish.router, prefix="/api/v1")
-app.include_router(events.router, prefix="/api/v1")
+app.include_router(users.router)
+app.include_router(fish.router)
+app.include_router(events.router)
 
