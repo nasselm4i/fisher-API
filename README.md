@@ -24,11 +24,8 @@ uvicorn main:app --reload
 
 ## Documentation
 
-The Fisher API documentation is available at the following URL:
+The Fisher API documentation is available at the following URL: http://localhost:8000/docs
 
-```
-http://localhost:8000/docs
-```
 
 ## Technologies
 
