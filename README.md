@@ -19,7 +19,7 @@ uvicorn update
 
 To use the Fisher API, run the following command:
 ```bash
-uvicorn main:app --reload
+uvicorn app/main:app --reload
 ```
 
 ## Documentation

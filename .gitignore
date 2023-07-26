@@ -321,5 +321,13 @@ $RECYCLE.BIN/
 .history
 .ionide
 
+### Windows Patch ###
+*.xlsx
+*.xlsb
+*.xlsm
+*.xls
+
+# Also ignore VS Code's workspace settings, which are stored inside
+alembic.ini
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,git,vim,visualstudiocode,linux,macos
