@@ -331,4 +331,5 @@ $RECYCLE.BIN/
 alembic.ini
 
 function.zip
+*.sh
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,git,vim,visualstudiocode,linux,macos

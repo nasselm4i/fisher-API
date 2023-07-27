@@ -6,7 +6,7 @@
 
 Fisher BackEnd API for the Abenaki Fishing App "Carnet du pêcheur"
 
-![Profile Picture](https://avatars.githubusercontent.com/u/63957268?s=400&v=4)
+<img src="https://avatars.githubusercontent.com/u/63957268?s=400&v=4" width="200" height="200" alt="Profile Picture">
 
 ## Installation
 
@@ -20,7 +20,7 @@ uvicorn update
 
 To use the Fisher API, run the following command:
 ```bash
-uvicorn app/main:app --reload
+uvicorn app.main:app --reload
 ```
 
 ## Documentation
@@ -57,11 +57,6 @@ For any inquiries or suggestions, please feel free to reach out to us:
 
 - GitHub: [@nasselm4i](https://github.com/nasselm4i)
 - Email: n.nassim4100@gmail.com
-
-cd /Users/massaud/Documents/Codes/FisherApp/venv/lib/python3.10/site-packages
-zip -r9 ../../../../function.zip .  
-cd ../../../../
-zip -g ./function.zip -r app    
 =======
 Fisher BackEnd API for the Abenaki Fishing App "Carnet du pêcheur"
 >>>>>>> 5012e26e0ffe015cefeeaf323f3e214bc395de0f
