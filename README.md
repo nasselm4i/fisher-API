@@ -56,3 +56,8 @@ For any inquiries or suggestions, please feel free to reach out to us:
 
 - GitHub: [@nasselm4i](https://github.com/nasselm4i)
 - Email: n.nassim4100@gmail.com
+
+cd /Users/massaud/Documents/Codes/FisherApp/venv/lib/python3.10/site-packages
+zip -r9 ../../../../function.zip .  
+cd ../../../../
+zip -g ./function.zip -r app    
