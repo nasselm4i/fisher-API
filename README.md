@@ -58,5 +58,5 @@ For any inquiries or suggestions, please feel free to reach out to us:
 - GitHub: [@nasselm4i](https://github.com/nasselm4i)
 - Email: n.nassim4100@gmail.com
 
-<img src="https://avatars.githubusercontent.com/u/63957268?s=400&v=4" width="100" height="100" alt="Profile Picture">
-Made by Nassim Massaudi
+<img src="https://avatars.githubusercontent.com/u/63957268?s=400&v=4" width="20" height="20" alt="Profile Picture"> Made by Nassim Massaudi :)
+
