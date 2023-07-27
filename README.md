@@ -1,12 +1,12 @@
 # fisher-API
-<<<<<<< HEAD
-
+    
+[![Contributors](https://img.shields.io/badge/contributors-2-green.svg)]()
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-green.svg)]()
 
 Fisher BackEnd API for the Abenaki Fishing App "Carnet du pêcheur"
 
-<img src="https://avatars.githubusercontent.com/u/63957268?s=400&v=4" width="200" height="200" alt="Profile Picture">
+
 
 ## Installation
 
@@ -59,4 +59,6 @@ For any inquiries or suggestions, please feel free to reach out to us:
 - Email: n.nassim4100@gmail.com
 =======
 Fisher BackEnd API for the Abenaki Fishing App "Carnet du pêcheur"
->>>>>>> 5012e26e0ffe015cefeeaf323f3e214bc395de0f
+
+<img src="https://avatars.githubusercontent.com/u/63957268?s=400&v=4" width="100" height="100" alt="Profile Picture">
+Made by Nassim Massaudi :wave: [Get in touch!](
