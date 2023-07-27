@@ -18,8 +18,6 @@ from app.api.users import get_current_active_user
 
 router = APIRouter()
 
-
-    
 # events = []
 
 # @router.get("/events")

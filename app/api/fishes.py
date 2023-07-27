@@ -2,6 +2,9 @@ from fastapi import Depends, HTTPException, APIRouter
 
 from typing import Annotated
 
+from app.api.utils.fishes import create_event_entry
+from app.api.utils.fishes import create_fish_entry
+
 from app.db.db_setup import get_session
 from app.db.models.event import Event
 from app.db.models.fish import Fish
@@ -86,23 +89,3 @@ def create_fish_with_event(current_user: Annotated[UserDetails, Depends(get_curr
         db.rollback()
         # Handle the exception appropriately (e.g., return an error response)
         raise HTTPException(status_code=500, detail="Failed to create fish")
-
-
-def create_fish_entry(fish: FishSpec, db: Session, event_id: int, user_id: int) -> Fish:
-    fish_obj = Fish(**fish.dict(), event_id=event_id, user_id=user_id)
-    db.add(fish_obj)
-    return fish_obj
-
-def create_event_entry(event: EventSpec, uid: int, db: Session) -> Event:
-    event_obj = Event(
-        date=event.date,
-        zone=event.zone,
-        fishing_method=event.fishing_method,
-        quantity_captured=event.quantity_captured,
-        fishing_duration=event.fishing_duration,
-        user_id=uid,
-    )
-    db.add(event_obj)
-    db.commit()
-    db.refresh(event_obj)
-    return event_obj

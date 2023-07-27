@@ -8,22 +8,19 @@ from mangum import Mangum
 app = FastAPI(
     title="Carnet du Pêcheur API",
     description="""
-## Items
-
-You can **read items**.
 
 ## Utilisateur
 
 You will be able to:
 
-* **Create users** (_not implemented_).
-* **Read users** (_not implemented_).
+* **Create users** 
+* **Login** 
 
-* **Add fish** (_not implemented_).
-* **Read fish** (_not implemented_).
+* **Add fish** 
+* **Read fish**
 
-* **Add Events** (_not implemented_).
-* **Read Events** (_not implemented_).
+* **Add Events**
+* **Read Events**
 
 """,
     summary="Everything needed for the development of the Fishing App for Abenakis Fishers. 🚀",
