@@ -29,7 +29,7 @@ ALGORITHM = os.environ.get("ALGORITHM") or "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 120
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 def sqlalchemy_to_dict(obj):
     mapper = class_mapper(obj.__class__)
