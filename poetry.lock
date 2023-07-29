@@ -53,30 +53,49 @@ files = [
 
 [[package]]
 name = "bcrypt"
-version = "3.2.2"
+version = "3.0.0"
 description = "Modern password hashing for your software and your servers"
 optional = false
-python-versions = ">=3.6"
+python-versions = "*"
 files = [
-    {file = "bcrypt-3.2.2-cp36-abi3-macosx_10_10_universal2.whl", hash = "sha256:7180d98a96f00b1050e93f5b0f556e658605dd9f524d0b0e68ae7944673f525e"},
-    {file = "bcrypt-3.2.2-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.manylinux_2_24_aarch64.whl", hash = "sha256:61bae49580dce88095d669226d5076d0b9d927754cedbdf76c6c9f5099ad6f26"},
-    {file = "bcrypt-3.2.2-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:88273d806ab3a50d06bc6a2fc7c87d737dd669b76ad955f449c43095389bc8fb"},
-    {file = "bcrypt-3.2.2-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl", hash = "sha256:6d2cb9d969bfca5bc08e45864137276e4c3d3d7de2b162171def3d188bf9d34a"},
-    {file = "bcrypt-3.2.2-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2b02d6bfc6336d1094276f3f588aa1225a598e27f8e3388f4db9948cb707b521"},
-    {file = "bcrypt-3.2.2-cp36-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:a2c46100e315c3a5b90fdc53e429c006c5f962529bc27e1dfd656292c20ccc40"},
-    {file = "bcrypt-3.2.2-cp36-abi3-musllinux_1_1_aarch64.whl", hash = "sha256:7d9ba2e41e330d2af4af6b1b6ec9e6128e91343d0b4afb9282e54e5508f31baa"},
-    {file = "bcrypt-3.2.2-cp36-abi3-musllinux_1_1_x86_64.whl", hash = "sha256:cd43303d6b8a165c29ec6756afd169faba9396a9472cdff753fe9f19b96ce2fa"},
-    {file = "bcrypt-3.2.2-cp36-abi3-win32.whl", hash = "sha256:4e029cef560967fb0cf4a802bcf4d562d3d6b4b1bf81de5ec1abbe0f1adb027e"},
-    {file = "bcrypt-3.2.2-cp36-abi3-win_amd64.whl", hash = "sha256:7ff2069240c6bbe49109fe84ca80508773a904f5a8cb960e02a977f7f519b129"},
-    {file = "bcrypt-3.2.2.tar.gz", hash = "sha256:433c410c2177057705da2a9f2cd01dd157493b2a7ac14c8593a16b3dab6b6bfb"},
+    {file = "bcrypt-3.0.0-cp26-cp26m-manylinux1_i686.whl", hash = "sha256:8a8a98e12498be62488076a24e100de059a1ef9e82b502a5ebbbed4093468fe2"},
+    {file = "bcrypt-3.0.0-cp26-cp26m-manylinux1_x86_64.whl", hash = "sha256:32de7aaf736773ef000239d3531e6ee08a4d609f81d1e5b291c8a9bdb30ba465"},
+    {file = "bcrypt-3.0.0-cp26-cp26m-win32.whl", hash = "sha256:4c5f633366522a3c6e9322c9b2e62c83676e1e7945ece2cf40fa1586d7af7a53"},
+    {file = "bcrypt-3.0.0-cp26-cp26m-win_amd64.whl", hash = "sha256:e5c95c11c11c3d4a1afdd4e782e81babf42aab66e203bc52d7947b72e17e4b5a"},
+    {file = "bcrypt-3.0.0-cp26-cp26mu-manylinux1_i686.whl", hash = "sha256:73f9aa33c35cdd63ab78398bf4e982568bb1fb7bcf6092db91806aba51f76ddc"},
+    {file = "bcrypt-3.0.0-cp26-cp26mu-manylinux1_x86_64.whl", hash = "sha256:b4313d6148696050871d7eb04ef286d32f14013c810b04e34d5ea5bab99a6ba7"},
+    {file = "bcrypt-3.0.0-cp27-cp27m-macosx_10_6_intel.whl", hash = "sha256:9306267aedb7ee15c1ec32a2dfd54b29d422c921dcfe42deb50a0b1a3c7aaed2"},
+    {file = "bcrypt-3.0.0-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:a3ab0749996ce3da7145f531a29b02d476a23037948f5c26c56a0c6a0a46a30b"},
+    {file = "bcrypt-3.0.0-cp27-cp27m-manylinux1_x86_64.whl", hash = "sha256:c17ddbef8e73b30cb83cec6f6f25e31351f73dda25cf414a3bc24213410414b3"},
+    {file = "bcrypt-3.0.0-cp27-cp27m-win32.whl", hash = "sha256:9a76f6c06f2f1a2d599b83cde78b3dfcd643ffd25ecde8f252010d19da663e54"},
+    {file = "bcrypt-3.0.0-cp27-cp27m-win_amd64.whl", hash = "sha256:029ccfaa1ce249cffb5e6a62927f0efb2844d252cbe7bc09ca938f9d9c185f98"},
+    {file = "bcrypt-3.0.0-cp27-cp27mu-macosx_10_10_x86_64.whl", hash = "sha256:a7d46e88b1d2b112fa435471b38ea789879f0600baaff364413592c3f34a553b"},
+    {file = "bcrypt-3.0.0-cp27-cp27mu-manylinux1_i686.whl", hash = "sha256:cb4437c85c96faa6cf12a7e25fbc8a876e0b59611fcf837ea1e4229b081e7d5f"},
+    {file = "bcrypt-3.0.0-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:1627fddc299eeba80357c9a44d923eadf925e5379f9a385cb802218f3dab5df2"},
+    {file = "bcrypt-3.0.0-cp33-cp33m-macosx_10_6_intel.whl", hash = "sha256:79e5b62b6161e34acdc9086a63a0c063def46023353929d9242f9e9016df97f1"},
+    {file = "bcrypt-3.0.0-cp33-cp33m-manylinux1_i686.whl", hash = "sha256:91af256403146453203885d9d8f83f770667d4ed02cf01f2f174f849eb1884a7"},
+    {file = "bcrypt-3.0.0-cp33-cp33m-manylinux1_x86_64.whl", hash = "sha256:84ae051884cb3251e9cd98ad8c5e42eb6e960214dbc81e04dd2ee4ea458aa562"},
+    {file = "bcrypt-3.0.0-cp33-cp33m-win32.whl", hash = "sha256:0f3e88da1ad3c6cc51c6d2aeddd37e23d15a378ae612b87cf7644874a35c2779"},
+    {file = "bcrypt-3.0.0-cp33-cp33m-win_amd64.whl", hash = "sha256:1b7d71c3357321d87f665d718f2a5347735a536857fc1fe825da8e514f097413"},
+    {file = "bcrypt-3.0.0-cp34-cp34m-macosx_10_6_intel.whl", hash = "sha256:3a45273f8aa5b3459ad919517bd812548792656ebc72682d0f1895b84c3b9ad7"},
+    {file = "bcrypt-3.0.0-cp34-cp34m-manylinux1_i686.whl", hash = "sha256:61de9dfdbfd3c064bea70ade459c50662073516ee83847b4a98ac015c16e14f6"},
+    {file = "bcrypt-3.0.0-cp34-cp34m-manylinux1_x86_64.whl", hash = "sha256:8cc0cb1f925a586af020de010212ebd803bf238c0af451d2bcfeff710b37ba26"},
+    {file = "bcrypt-3.0.0-cp34-cp34m-win32.whl", hash = "sha256:fad2ccacbba3e1ba6b1decef432b9970772f7a2efcc3c5c16d5319bc8ff8fcfb"},
+    {file = "bcrypt-3.0.0-cp34-cp34m-win_amd64.whl", hash = "sha256:ad611c623bad37ec4baa23ae555cd4b310c578a0e22c60ec4bd3f896106b3b89"},
+    {file = "bcrypt-3.0.0-cp35-cp35m-macosx_10_6_intel.whl", hash = "sha256:c010caeaae6870c4cdf2b8dbe5ed6b7976126ebba5e36c9d76e10a3dd9c290e5"},
+    {file = "bcrypt-3.0.0-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:07d9b08ff2b300bec816e6007c04462a2c779bda6c93d1d983ff4b2196304676"},
+    {file = "bcrypt-3.0.0-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:31829e8c885f5af94db5af74be959dffc283e5fdbf960dd5dbbf58a58795e011"},
+    {file = "bcrypt-3.0.0-cp35-cp35m-win32.whl", hash = "sha256:8d52399d337d81da33920cd5be5f213bc81073d47b77ab1fcacfc1e95d705b7c"},
+    {file = "bcrypt-3.0.0-cp35-cp35m-win_amd64.whl", hash = "sha256:eca160836418227221c61bd2908d8d2c873e51e0d3b65d956685d9e54da1315c"},
+    {file = "bcrypt-3.0.0.tar.gz", hash = "sha256:fbcfd8bfc6c47c6e0058fa16891fa0a580ac29634c7d56b568cc28b47fd2d6d3"},
 ]
 
 [package.dependencies]
 cffi = ">=1.1"
+six = ">=1.4.1"
 
 [package.extras]
-tests = ["pytest (>=3.2.1,!=3.3.0)"]
-typecheck = ["mypy"]
+tests = ["pytest"]
 
 [[package]]
 name = "boto3"
@@ -960,4 +979,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "02f948effbdcbf3a906e284a67c8215bb10d2b516d339ebe9135df83b44d8c61"
+content-hash = "5ee2fed3f1a6042a151f79df240aa4274a9777b4a021693d771a553195d832a2"
