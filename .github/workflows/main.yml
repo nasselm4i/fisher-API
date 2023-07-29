@@ -18,11 +18,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Upload function.zip to S3
+      - name: Uploading Lambda Function file to S3
         run: |
           aws s3 cp function.zip s3://serveless-fishingapp-abenaki/function.zip
 
-      - name: Deploy Lambda function
+      - name: Deploying Lambda function
         run: |
           aws lambda update-function-code \
             --function-name FishingAppBackend \
