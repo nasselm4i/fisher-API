@@ -13,7 +13,9 @@ Fisher BackEnd API for the Abenaki Fishing App "Carnet du pêcheur"
 To install and run the Fisher API, use the following command:
 
 ```bash
-uvicorn update
+docker pull amazon/aws-lambda-python
+docker build -t amazon/aws-lambda-python . 
+docker run -p 9000:8080 --env-file .env amazon/aws-lambda-python
 ```
 
 ## Usage
