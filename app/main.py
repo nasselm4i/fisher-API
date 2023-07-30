@@ -35,7 +35,7 @@ You will be able to:
     },
 )
 
-lambda_handler = Mangum(app)
+handler = Mangum(app)
 
 app.include_router(user_router)
 app.include_router(fish_router)
