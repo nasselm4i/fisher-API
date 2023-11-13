@@ -15,16 +15,6 @@ app = FastAPI(
 
 You will be able to:
 
-<<<<<<< HEAD
-* **Create users** 
-* **Login** 
-
-* **Add fish** 
-* **Read fish**
-
-* **Add Events**
-* **Read Events**
-=======
 * **Create users** (_implemented_).
 * **Read users** (_implemented_).
 * **Get new user password** (_implemented_).
@@ -38,7 +28,6 @@ You will be able to:
 * **Visualize fishing zone** (_implemented_).
 * **Visualize fishing history** (_implemented_).
 
->>>>>>> origin/1-initial-app-setup
 
 """,
     summary="Everything needed for the development of the Fishing App for Abenakis Fishers. 🚀",

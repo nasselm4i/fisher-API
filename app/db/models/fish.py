@@ -19,4 +19,5 @@ class Fish(Base):
     event_id = Column(Integer, ForeignKey("events.event_id"), nullable=False)
     # user = relationship("User", back_populates="fish", uselist=False) 
     event = relationship("Event", back_populates="fish", uselist=False)
+
     

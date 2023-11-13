@@ -329,11 +329,6 @@ $RECYCLE.BIN/
 
 # Also ignore VS Code's workspace settings, which are stored inside
 alembic.ini
-<<<<<<< HEAD
-test.py
-*.sh
-# End of https://www.toptal.com/developers/gitignore/api/windows,python,git,vim,visualstudiocode,linux,macos
-=======
 
 # folder "diverse" and everything inside it
 diverse/
@@ -353,4 +348,3 @@ pyproject.toml
 
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,git,vim,visualstudiocode,linux,macos
->>>>>>> origin/1-initial-app-setup
