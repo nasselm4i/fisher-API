@@ -330,5 +330,21 @@ $RECYCLE.BIN/
 # Also ignore VS Code's workspace settings, which are stored inside
 alembic.ini
 
+# folder "diverse" and everything inside it
+diverse/
+
+#every csv file
+*.csv
+
+# every zip file
+*.zip
+
+# dockerfile
+Dockerfile
+
+poetry.lock
+pyproject.toml
+
+
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,git,vim,visualstudiocode,linux,macos
