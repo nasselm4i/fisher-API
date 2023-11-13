@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Téléchargement des données</title>
+    <style>
+        .form-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .input-field {
+            width: 60%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .submit-button {
+            width: 40%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            .input-field,
+            .submit-button {
+                width: 80%;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header img {
+            max-width: 150px;
+        }
+
+        .code {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            background-color: #e8f5e9; /* Light green background */
+            padding: 20px 0;
+            border: 2px dashed #4CAF50; /* Green border */
+            margin: 20px 0;
+            letter-spacing: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://i.ibb.co/YX9pPzN/logo-abenaki.png" alt="Communauté Wolinak">
+            <h2>Téléchargement des données de pêches</h2>
+        </div>
+
+        <div class="form-container">
+            <form id="code-form">
+                <input type="text" name="code" placeholder="Entrez le code ici" class="input-field">
+                <input type="submit" value="Télécharger" class="submit-button">
+                <p id="error-message" style="color: red; display: none;">Code incorrect</p>
+            </form>
+        </div>
+
+        <p style="color: red; text-align: center; text-decoration:solid;" > SVP, sans autorisation, veuillez ne pas divulguer ni les données ni ce lien, ni le code.</p>
+
+        <div class="footer">
+            © 2023 Université Laval. Tous droits réservés.
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    document.getElementById('code-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+    var response = await fetch('/user_data_zip', {
+        method: 'POST',
+        body: formData
+    });
+
+    if (response.ok) {
+        // Handle the file download
+        const blob = await response.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = "downloaded_file.zip"; // The filename you want
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+    } else {
+        // Show error message
+        document.getElementById('error-message').style.display = 'block';
+    }
+    });
+    </script>
