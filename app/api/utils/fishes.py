@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-from sqlalchemy.orm import Session
-from app.db.models.event import Event
-from app.db.models.fish import Fish
-from app.schemas.events import EventSpec
-from app.schemas.fishes import FishSpec
-
-
-def create_fish_entry(fish: FishSpec, db: Session, event_id: int, user_id: int) -> Fish:
-    fish_obj = Fish(**fish.dict(), event_id=event_id, user_id=user_id)
-=======
 from datetime import datetime
 
 from app.db.models.event import Event
@@ -61,19 +50,11 @@ def create_fish_entry(fish: FishSpec, db: Session, event_id: int, user_id: int) 
     fish_data['fish_code'] = fish_code
 
     fish_obj = Fish(**fish_data, event_id=event_id, user_id=user_id)
->>>>>>> origin/1-initial-app-setup
     db.add(fish_obj)
     return fish_obj
 
 def create_event_entry(event: EventSpec, uid: int, db: Session) -> Event:
     event_obj = Event(
-<<<<<<< HEAD
-        date=event.date,
-        zone=event.zone,
-        fishing_method=event.fishing_method,
-        quantity_captured=event.quantity_captured,
-        fishing_duration=event.fishing_duration,
-=======
         front_event_id=event.front_event_id,
         date=datetime.strptime(event.date, '%Y-%m-%d'),
         zone=event.zone,
@@ -83,15 +64,11 @@ def create_event_entry(event: EventSpec, uid: int, db: Session) -> Event:
         quantity_conserved=event.quantity_conserved,
         fishing_duration=event.fishing_duration,
         notes=event.notes,
->>>>>>> origin/1-initial-app-setup
         user_id=uid,
     )
     db.add(event_obj)
     db.commit()
     db.refresh(event_obj)
-<<<<<<< HEAD
-    return event_obj
-=======
     return event_obj
 
 # Esturgeon, Perchaude, Maskinongé, Anguille, Brochet, Doré jaune, Doré noir, Barbue, Barbotte, Achigan sp., Autres espèces 
@@ -107,4 +84,3 @@ def create_event_entry(event: EventSpec, uid: int, db: Session) -> Event:
 #     "TO": "Touladi (truite grise)",
 #     "XP": "Autre espèce poisson"
 # }
->>>>>>> origin/1-initial-app-setup

@@ -1,10 +1,9 @@
 from fastapi import Depends, HTTPException, APIRouter
 
 from typing import Annotated, List
-from app.api.utils.fishes import create_event_entry, create_fish_entry
+from app.api.utils.fishes import create_fish_entry
 
 from app.api.utils.fishes import create_event_entry
-from app.api.utils.fishes import create_fish_entry
 
 from app.db.db_setup import get_session
 from app.db.models.event import Event
@@ -66,9 +65,4 @@ def create_fish_with_event(
     except Exception as e:
         logger.error("An error occurred in create_fish_with_event: %s", e)
         db.rollback()
-<<<<<<< HEAD
-        # Handle the exception appropriately (e.g., return an error response)
-        raise HTTPException(status_code=500, detail="Failed to create fish")
-=======
         raise HTTPException(status_code=500, detail=str(e))
->>>>>>> origin/1-initial-app-setup
