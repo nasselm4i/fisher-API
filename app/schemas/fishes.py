@@ -2,15 +2,15 @@ from typing import Optional, List
 from pydantic import BaseModel, validator
 
 
-
 class FishSpec(BaseModel):
     specie: str
+    other_specie: Optional[str] = None
     # event_id: int
     weight: Optional[float] = None
     length: Optional[float] = None
     cooking_method: Optional[str] = None
     consumed_organs: Optional[str] = None
-    tag_no: Optional[int] = None
+    tag_no: Optional[str] = None
 
     @validator('tag_no')
     def validate_tag_no(cls, tag_no, values):

@@ -15,41 +15,16 @@ from app.schemas.users import UserDetails
 
 from app.api.users import get_current_active_user
 
+from app.schemas.events import EventSpec, GPSZone
+
+
+from datetime import datetime
+import re
 
 router = APIRouter()
 
-# events = []
 
-# @router.get("/events")
-# def get_events():
-#     return events
-
-# @router.get("/events/{id}")
-# def get_event(
-#     id: int):
-#     return {"event": events[id]}
-
-# @router.post("/events")
-# def add_event(event : EventDetails):
-#     events.append(event)
-#     return {"message": "Event added."}
-
-# @router.post("/events/{uid}", response_model=EventSpec)
-# async def create_event(uid: int, event: EventSpec, db: Session = Depends(get_session)):
-#     new_event = Event(
-#         date=event.date,
-#         zone=event.zone,
-#         fishing_method=event.fishing_method,
-#         quantity_captured=event.quantity_captured,
-#         fishing_duration=event.fishing_duration,
-#         user_id=current_user.id
-#     )
-#     db.add(new_event)
-#     db.commit()
-#     db.refresh(new_event)
-#     return new_event
-
-@router.get("/events/me/fish_count_per_zone/")
+@router.get("/events/fish_count_per_zone")
 async def get_fish_count_per_zone(
     current_user: Annotated[UserDetails, Depends(get_current_active_user)], 
     time_interval: str = Query(..., description="Time interval: week, month, or year"),
@@ -94,7 +69,7 @@ async def get_fish_count_per_zone(
     return fish_count_per_zone
 
 
-@router.get("/events/me/stats/", response_model=Union[List[FishCaughtByWeek], List[FishCaughtByMonth], List[FishCaughtByYear]])
+@router.get("/events/stats", response_model=Union[List[FishCaughtByWeek], List[FishCaughtByMonth], List[FishCaughtByYear]])
 async def get_fish_caught_by_time_range(current_user: Annotated[UserDetails, Depends(get_current_active_user)], time_range: str = Query(...), session: Session = Depends(get_session)):
     query = session.query(
         func.extract('week', Event.date).label('week_number'),
@@ -160,3 +135,67 @@ async def get_fish_caught_by_time_range(current_user: Annotated[UserDetails, Dep
         raise HTTPException(status_code=400, detail="Invalid time range")
 
     return fish_caught_by_time_range
+
+from fastapi import HTTPException, status
+import re
+
+@router.get("/events/last_n", response_model=List[EventSpec])
+async def get_last_n_events(
+    current_user: Annotated[UserDetails, Depends(get_current_active_user)], 
+    n: int = Query(10, description="Number of last events to be returned (-1 for all events). Excluding 0."),
+    session: Session = Depends(get_session)
+):
+    if n == 0:
+        raise HTTPException(status_code=400, detail="Number of events to fetch cannot be 0.")
+
+    query = session.query(Event) \
+        .filter(Event.user_id == current_user.user_id) \
+        .order_by(Event.date.desc())
+
+    # If n is not -1, we limit the results
+    if n != -1:
+        query = query.limit(n)
+
+    last_n_events = query.all()
+
+    # Convert the ORM objects to the Pydantic model
+    events_details = []
+    for event in last_n_events:
+        # Convert date to string format
+        date_str = event.date.strftime('%Y-%m-%d') if event.date else 'N/A'
+    
+        # Check if submission_date is None before formatting
+        if event.submission_date:
+            submitted_date_str = event.submission_date.strftime('%Y-%m-%d')
+        else:
+            submitted_date_str = 'N/A'
+        
+        # Parse the gps_coordinate string to extract latitude and longitude
+        match = re.match(r"\((.*), (.*)\)", event.gps_coordinate)
+        if match:
+            latitude, longitude = map(float, match.groups())
+        else:
+            # Option 1: Provide default values
+            latitude, longitude = 0.0, 0.0
+            
+            # Option 2: Raise an error
+            # raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
+            #                     detail="Failed to parse GPS coordinates.")
+        
+        gps_zone = GPSZone(latitude=latitude, longitude=longitude)
+        
+        event_spec = EventSpec(
+            front_event_id=event.front_event_id,
+            submission_date=submitted_date_str,
+            date=date_str,
+            zone=event.zone,
+            gps_coordinate=gps_zone,
+            fishing_method=event.fishing_method,
+            quantity_captured=event.quantity_captured,
+            quantity_conserved=event.quantity_conserved,
+            fishing_duration=event.fishing_duration,
+            notes=event.notes
+        )
+        events_details.append(event_spec)
+
+    return events_details
