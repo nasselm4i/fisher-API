@@ -1,7 +1,7 @@
 # fisher-API
     
-[![Contributors](https://img.shields.io/badge/contributors-2-green.svg)]()
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)]()
+[![Contributors](https://img.shields.io/badge/contributors-1-green.svg)]()
+[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-green.svg)]()
 
 Fisher BackEnd API for the Abenaki Fishing App "Carnet de pêche"
