@@ -31,7 +31,7 @@ You will be able to:
 
 """,
     summary="Everything needed for the development of the Fishing App for Abenakis Fishers. 🚀",
-    version="0.0.1",
+    version="1.3.0",
     contact={
         "name": "Nassim Massaudi",
         "email": "naelm31@ulaval.ca",

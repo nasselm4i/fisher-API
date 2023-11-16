@@ -37,3 +37,18 @@ class FishCaughtByYear(BaseModel):
     year_number: int
     fish_type: str
     type_count: int
+    
+    
+class FishCaughtByWeekMerged(BaseModel):
+    week_number: int
+    year_number: int
+    total_count: int
+    
+class FishCaughtByMonthMerged(BaseModel):
+    month_number: int
+    year_number: int
+    total_count: int
+
+class FishCaughtByYearMerged(BaseModel):
+    year_number: int
+    total_count: int

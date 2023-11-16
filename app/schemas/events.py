@@ -1,6 +1,7 @@
 # from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel, validator
+from enum import Enum
 
 class GPSZone(BaseModel):
     latitude: float
@@ -28,3 +29,9 @@ class FishCountPerZone(BaseModel):
     zone: str
     fish_count: int
 
+
+
+class TimeRange(Enum):
+    WEEKLY = "weekly"
+    MONTHLY = "monthly"
+    YEARLY = "yearly"
