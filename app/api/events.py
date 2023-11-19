@@ -70,11 +70,17 @@ async def get_fish_count_per_zone(
 
 
 @router.get("/events/stats", response_model=Union[List[FishCaughtByWeek], List[FishCaughtByMonth], List[FishCaughtByYear], List[FishCaughtByWeekMerged], List[FishCaughtByMonthMerged], List[FishCaughtByYearMerged]])
-async def get_fish_caught_by_time_range(current_user: Annotated[UserDetails, Depends(get_current_active_user)], time_range: TimeRange = Query(...), merged: bool = Query(...), session: Session = Depends(get_session)):
+async def get_fish_caught_by_time_range(
+    current_user: Annotated[UserDetails, Depends(get_current_active_user)], 
+    time_range: TimeRange = Query(...), 
+    merged: bool = Query(...), 
+    session: Session = Depends(get_session)):
+
+    # Base query modified to count Fish ids
     query = session.query(
         func.extract('year', Event.date).label('year_number'),
-        func.count().label('type_count')
-    ).join(Fish, Event.user_id == Fish.user_id)\
+        func.count(Fish.fish_id).label('type_count')
+    ).join(Fish, Event.event_id == Fish.event_id)\
     .filter(Event.user_id == current_user.user_id)
 
     if time_range == TimeRange.WEEKLY:
@@ -82,89 +88,51 @@ async def get_fish_caught_by_time_range(current_user: Annotated[UserDetails, Dep
         if merged:
             query = query.group_by('week_number', 'year_number')\
                 .order_by('year_number', 'week_number')
-            result = query.all()
-            fish_caught_by_time_range = [
-                FishCaughtByWeekMerged(
-                    week_number=row.week_number,
-                    year_number=row.year_number,
-                    total_count=row.type_count
-                )
-                for row in result
-            ]
         else:
             query = query.add_columns(Fish.specie.label('fish_type'))\
-            .group_by('week_number', 'year_number', Fish.specie)\
+                .group_by('week_number', 'year_number', Fish.specie)\
                 .order_by('year_number', 'week_number')
-            result = query.all()
-            fish_caught_by_time_range = [
-                FishCaughtByWeek(
-                    week_number=row.week_number,
-                    year_number=row.year_number,
-                    fish_type=row.fish_type,
-                    type_count=row.type_count
-                )
-                for row in result
-            ]
     elif time_range == TimeRange.MONTHLY:
         query = query.add_columns(func.extract('month', Event.date).label('month_number'))
         if merged:
             query = query.group_by('month_number', 'year_number')\
                 .order_by('year_number', 'month_number')
-            result = query.all()
-            fish_caught_by_time_range = [
-                FishCaughtByMonthMerged(
-                    month_number=row.month_number,
-                    year_number=row.year_number,
-                    total_count=row.type_count
-                )
-                for row in result
-            ]
         else:
             query = query.add_columns(Fish.specie.label('fish_type'))\
-                .group_by('month_number', 'year_number',  Fish.specie)\
+                .group_by('month_number', 'year_number', Fish.specie)\
                 .order_by('year_number', 'month_number')
-            result = query.all()
-            fish_caught_by_time_range = [
-                FishCaughtByMonth(
-                    month_number=row.month_number,
-                    year_number=row.year_number,
-                    fish_type=row.fish_type,
-                    type_count=row.type_count
-                )
-                for row in result
-            ]
     elif time_range == TimeRange.YEARLY:
         if merged:
             query = query.group_by('year_number')\
                 .order_by('year_number')
-            result = query.all()
-            fish_caught_by_time_range = [
-                FishCaughtByYearMerged(
-                    year_number=row.year_number,
-                    total_count=row.type_count
-                )
-                for row in result
-            ]
         else:
             query = query.add_columns(Fish.specie.label('fish_type'))\
                 .group_by('year_number', Fish.specie)\
                 .order_by('year_number')
-            result = query.all()
-            fish_caught_by_time_range = [
-                FishCaughtByYear(
-                    year_number=row.year_number,
-                    fish_type=row.fish_type,
-                    type_count=row.type_count
-                )
-                for row in result
-            ]
     else:
         raise HTTPException(status_code=400, detail="Invalid time range")
 
-    return fish_caught_by_time_range
+    # Executing the query
+    result = query.all()
 
-from fastapi import HTTPException, status
-import re
+    # Constructing the response based on the time range and merged flag
+    if time_range == TimeRange.WEEKLY:
+        if merged:
+            fish_caught_by_time_range = [FishCaughtByWeekMerged(week_number=row.week_number, year_number=row.year_number, total_count=row.type_count) for row in result]
+        else:
+            fish_caught_by_time_range = [FishCaughtByWeek(week_number=row.week_number, year_number=row.year_number, fish_type=row.fish_type, type_count=row.type_count) for row in result]
+    elif time_range == TimeRange.MONTHLY:
+        if merged:
+            fish_caught_by_time_range = [FishCaughtByMonthMerged(month_number=row.month_number, year_number=row.year_number, total_count=row.type_count) for row in result]
+        else:
+            fish_caught_by_time_range = [FishCaughtByMonth(month_number=row.month_number, year_number=row.year_number, fish_type=row.fish_type, type_count=row.type_count) for row in result]
+    elif time_range == TimeRange.YEARLY:
+        if merged:
+            fish_caught_by_time_range = [FishCaughtByYearMerged(year_number=row.year_number, total_count=row.type_count) for row in result]
+        else:
+            fish_caught_by_time_range = [FishCaughtByYear(year_number=row.year_number, fish_type=row.fish_type, type_count=row.type_count) for row in result]
+
+    return fish_caught_by_time_range
 
 @router.get("/events/last_n", response_model=List[EventSpec])
 async def get_last_n_events(
