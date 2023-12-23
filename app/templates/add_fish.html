@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Téléchargement des données</title>
+    <title>Ajouter un poisson dans la liste</title>
     <style>
         .form-container {
             text-align: center;
@@ -92,27 +92,18 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://i.ibb.co/vJLcKFN/logo-team.png" alt="Communauté Wolinak">
-            <h2>Téléchargement des données de pêches</h2>
+            <img src="https://i.ibb.co/YX9pPzN/logo-abenaki.png" alt="Communauté Wolinak">
+            <h2>Ajouter une espèce de poisson</h2>
         </div>
 
         <div class="form-container">
             <form id="code-form">
-                <input type="text" name="code" placeholder="Entrez le code ici" class="input-field">
-                
-                <!-- Container for the toggle -->
-                <div style="text-align: center; margin-top: 10px;">
-                    <label for="filtered" style="margin-right: 10px;">Données filtrées:</label>
-                    <input type="checkbox" id="filtered" name="filtered">
-                </div>
-
-                <input type="submit" value="Télécharger" class="submit-button">
-                <p id="error-message" style="color: red; display: none;">Code incorrect</p>
+                <!-- New input field for 2-character code with inline CSS for width -->
+                <input type="text" name="short-code" placeholder="PS" class="input-field" maxlength="2" style="width: 50px; text-transform: uppercase;">
+                <input type="text" name="code" placeholder="Entrez le nom de l'espèce" class="input-field">
+                <input type="submit" value="Ajouter" class="submit-button">
             </form>
         </div>
-
-
-        <p style="color: red; text-align: center; text-decoration:solid;" > SVP, sans autorisation, veuillez ne pas divulguer ni les données ni ce lien, ni le code.</p>
 
         <div class="footer">
             © 2023 Université Laval. Tous droits réservés.
@@ -120,35 +111,32 @@
     </div>
 </body>
 
+
 </html>
 
 <script>
     document.getElementById('code-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        var formData = new FormData(this);
-        // Explicitly add the checkbox state to the form data
-        formData.append('filtered', document.getElementById('filtered').checked ? "true" : "false");
-
-        var response = await fetch('/user_data_zip', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            // Handle the file download
-            const blob = await response.blob();
-            const downloadUrl = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.download = "downloaded_file.zip"; // The filename you want
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-        } else {
-            // Show error message
-            document.getElementById('error-message').style.display = 'block';
-        }
+    var formData = new FormData(this);
+    var response = await fetch('/user_data_zip', {
+        method: 'POST',
+        body: formData
     });
-</script>
 
+    if (response.ok) {
+        // Handle the file download
+        const blob = await response.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = "downloaded_file.zip"; // The filename you want
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+    } else {
+        // Show error message
+        document.getElementById('error-message').style.display = 'block';
+    }
+    });
+    </script>

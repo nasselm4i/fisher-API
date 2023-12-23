@@ -155,35 +155,45 @@ async def lost_password(email: str = Body(... , embed=True), db: Session = Depen
 
 
 @router.post("/report-problem")
-async def report_problem(username: str = Body(... , embed=True), problem: str = Body(... , embed=True), problem_type: str = Body(... , embed=True), db: Session = Depends(get_session)):
-    user = db.query(User).filter(User.username == username).first()
-    if not user:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Username not registered")
-    
-    # Create the problem report object
-    problem_report = ProblemReport(username=username, problem=problem, problem_type=problem_type)
+async def report_problem(
+    current_user: Annotated[UserDetails, Depends(get_current_active_user)],
+    username: str = Body(... , embed=True),  # Keep it but mark as deprecated
+    problem: str = Body(... , embed=True),
+    problem_type: str = Body(... , embed=True),
+    db: Session = Depends(get_session)
+):
+    # Using user_id from the current active user
+    user_id = current_user.user_id
+
+    # Create the problem report object with user_id and username
+    problem_report = ProblemReport(user_id=user_id, username=current_user.username, problem=problem, problem_type=problem_type)
     db.add(problem_report)
     db.commit()
 
     db.refresh(problem_report)
 
-    return {"message": "Problem has been submitted successfully."}
+    return {"message": "Problem has been submitted successfully.", "note": "The 'username' field is deprecated and will be removed in future updates."}
+
 
 @router.post("/report-exotic-fish")
-async def report_exotic_fish(username: str = Body(... , embed=True), fish_type: str = Body(... , embed=True), db:
-    Session = Depends(get_session)):
-    user = db.query(User).filter(User.username == username).first()
-    if not user:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Username not registered")
+async def report_exotic_fish(
+    current_user: Annotated[UserDetails, Depends(get_current_active_user)],
+    username: str = Body(... , embed=True),  # Keep it but mark as deprecated
+    fish_type: str = Body(... , embed=True),
+    db: Session = Depends(get_session)
+):
+    # Using user_id from the current active user
+    user_id = current_user.user_id
 
-    # Create the problem report object
-    exotic_fish_report = ExoticFishReport(username=username, fish_type=fish_type)
+    # Create the exotic fish report object with user_id and username
+    exotic_fish_report = ExoticFishReport(user_id=user_id, username=current_user.username, fish_type=fish_type)
     db.add(exotic_fish_report)
     db.commit()
 
     db.refresh(exotic_fish_report)
 
-    return {"message": "Exotic Fish has been submitted successfully."}
+    return {"message": "Exotic Fish has been submitted successfully.", "note": "The 'username' field is deprecated and will be removed in future updates."}
+
 
 @router.post("/change-password")
 async def change_password(

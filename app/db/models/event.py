@@ -20,4 +20,3 @@ class Event(Base):
     user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
     # user = relationship("User", back_populates="user", uselist=False)
     fish = relationship("Fish", back_populates="event", uselist=True)
-    

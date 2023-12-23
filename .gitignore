@@ -345,5 +345,8 @@ Dockerfile
 poetry.lock
 pyproject.toml
 
+# folder FISHER APP Documentation
+FISHER APP Documentation/
+
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,git,vim,visualstudiocode,linux,macos

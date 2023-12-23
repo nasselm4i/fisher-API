@@ -31,15 +31,23 @@ def model_to_row(instance):
     return [getattr(instance, column.name) for column in instance.__table__.columns]
 
 @router.post("/user_data_zip", response_class=StreamingResponse)
-async def read_users_me(code: str = Form(...), session: Session = Depends(get_session)):
+async def read_users_me(code: str = Form(...), filtered: bool = Form(...), session: Session = Depends(get_session)):
     correct_code = "puHmo4UhotWYAAkjFOCjKT8d1iNI61FyCA"  # Hardcoded code
 
     if code != correct_code:
         return Response(status_code=400)
-    # Filter user_ids 
-    user_ids = [212, 230, 232, 233, 243, 245, 246, 247, 248, 251]
-    # also include user ids greater than 253
-    user_ids.extend([user.user_id for user in session.query(User).filter(User.user_id > 253).all()])
+    
+    if filtered:
+        # Include only specific user_ids for filtered data
+        user_ids = [212, 232, 233, 251]
+        # also include user ids greater than 253
+        user_ids.extend([user.user_id for user in session.query(User).filter(User.user_id > 269).all()])
+    else:
+        # Include all user_ids or a different set of user_ids for non-filtered data
+        user_ids = [212, 230, 232, 233, 243, 245, 246, 247, 248, 251]
+        # user_ids = [user.user_id for user in session.query(User).all()]  # Example: getting all user_ids
+    
+    
 
     # Fetch users' emails
     users = session.query(User).filter(User.user_id.in_(user_ids)).all()
@@ -49,7 +57,7 @@ async def read_users_me(code: str = Form(...), session: Session = Depends(get_se
     mem_file = io.BytesIO()
     with zipfile.ZipFile(mem_file, 'w') as zip_file:
         # For each table, create a CSV file and add it to the zip
-        for table in [User, Event, Fish, ProblemReport, ExoticFishReport]:
+        for table in [Event, Fish, ProblemReport, ExoticFishReport]:
             # Check if the table has 'user_id' and 'email' attributes
             has_user_id = 'user_id' in inspect(table).columns
             has_email = 'email' in inspect(table).columns
