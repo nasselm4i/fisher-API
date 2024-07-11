@@ -24,14 +24,42 @@ templates = Jinja2Templates(directory="app/templates")  # assuming your HTML fil
 
 @router.get("/download_data", response_class=HTMLResponse)
 async def get_download_page(request: Request):
+    """
+    Retrieves the download page for exporting data.
+
+    Args:
+        request (Request): The HTTP request object.
+
+    Returns:
+        TemplateResponse: The template response containing the download form.
+    """
     return templates.TemplateResponse("download_form.html", {"request": request})
 
 def model_to_row(instance):
-    """Convert a SQLAlchemy model instance into a row of data."""
+    """
+    Convert a SQLAlchemy model instance into a row of data.
+
+    Args:
+        instance: The SQLAlchemy model instance to convert.
+
+    Returns:
+        A list representing a row of data, where each element corresponds to a column value in the instance's table.
+    """
     return [getattr(instance, column.name) for column in instance.__table__.columns]
 
 @router.post("/user_data_zip", response_class=StreamingResponse)
 async def read_users_me(code: str = Form(...), filtered: bool = Form(...), session: Session = Depends(get_session)):
+    """
+    Read user data based on the provided code and filter options.
+
+    Args:
+        code (str): The code to authenticate the user.
+        filtered (bool): Flag indicating whether to include only specific user_ids for filtered data.
+        session (Session): The database session.
+
+    Returns:
+        StreamingResponse: The response containing the exported user data in a zip file.
+    """
     correct_code = "puHmo4UhotWYAAkjFOCjKT8d1iNI61FyCA"  # Hardcoded code
 
     if code != correct_code:
@@ -47,8 +75,6 @@ async def read_users_me(code: str = Form(...), filtered: bool = Form(...), sessi
         user_ids = [212, 230, 232, 233, 243, 245, 246, 247, 248, 251]
         # user_ids = [user.user_id for user in session.query(User).all()]  # Example: getting all user_ids
     
-    
-
     # Fetch users' emails
     users = session.query(User).filter(User.user_id.in_(user_ids)).all()
     emails = [user.email for user in users]

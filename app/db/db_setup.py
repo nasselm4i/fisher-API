@@ -19,6 +19,12 @@ Base = declarative_base()
 
 # Dependency
 def get_session():
+    """
+    Returns a session object for database operations.
+
+    Returns:
+        Session: A session object for database operations.
+    """
     db = SessionLocal()
     try:
         yield db

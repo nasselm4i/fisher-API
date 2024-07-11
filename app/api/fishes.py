@@ -34,6 +34,21 @@ def create_fish_with_event(
     event: EventSpec,
     db: Session = Depends(get_session),
 ):
+    """
+    Creates fish entries for a given event and saves them in the database.
+
+    Args:
+        current_user (UserDetails): The details of the current user.
+        fishes (List[FishSpec]): The list of fish specifications.
+        event (EventSpec): The event specification.
+        db (Session, optional): The database session. Defaults to Depends(get_session).
+
+    Returns:
+        dict: A dictionary with a success message.
+
+    Raises:
+        HTTPException: If an error occurs during the process.
+    """
     try:
         ev = db.query(Event).filter(
             func.date(Event.date) == datetime.strptime(event.date, '%Y-%m-%d').date(),

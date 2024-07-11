@@ -111,8 +111,9 @@ def sqlalchemy_to_dict(obj):
 def send_verification_email_with_code(email, code):
     # Load the email template
     env = Environment(loader=FileSystemLoader('app/templates'))
-    template = env.get_template('verification_email_template.html')
-
+    # template = env.get_template('verification_email_template.html')
+    template = env.get_template('successfully_created_account.html')
+    
     # Render the email template with the verification code
     html = template.render(code=code)
 
@@ -120,7 +121,8 @@ def send_verification_email_with_code(email, code):
     msg = EmailMessage()
     msg.set_content(html, subtype='html')
 
-    msg['Subject'] = 'Votre code de vérification'
+    # msg['Subject'] = 'Votre code de vérification'
+    msg['Subject'] = 'Bienvenue sur Carnet de Pêche !'
     msg['From'] = 'carnetdupecheurabenaki.dev@gmail.com'
     msg['To'] = email
 

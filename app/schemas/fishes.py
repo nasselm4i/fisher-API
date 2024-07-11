@@ -14,6 +14,20 @@ class FishSpec(BaseModel):
 
     @validator('tag_no')
     def validate_tag_no(cls, tag_no, values):
+        """
+        Validates the tag number based on the fish species.
+
+        Args:
+            cls (class): The class object.
+            tag_no (str): The tag number to be validated.
+            values (dict): The dictionary containing the fish values.
+
+        Raises:
+            ValueError: If the fish species is 'Esturgeon' and tag_no is None.
+
+        Returns:
+            str: The validated tag number.
+        """
         if values.get('specie') == 'Esturgeon' and tag_no is None:
             raise ValueError("tag_no is required for specie 'Esturgeon'")
         return tag_no

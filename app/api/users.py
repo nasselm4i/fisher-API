@@ -7,7 +7,6 @@ from app.db.db_setup import get_session
 
 from sqlalchemy.orm import Session
 
-
 from fastapi import Depends, APIRouter, HTTPException, status
 from fastapi.security import (
     OAuth2PasswordBearer,
@@ -182,6 +181,18 @@ async def report_exotic_fish(
     fish_type: str = Body(... , embed=True),
     db: Session = Depends(get_session)
 ):
+    """
+    Report an exotic fish.
+
+    Args:
+        current_user (UserDetails): The details of the current user.
+        username (str): The username of the user (deprecated).
+        fish_type (str): The type of the exotic fish.
+        db (Session): The database session.
+
+    Returns:
+        dict: A dictionary containing a success message and a note about the deprecated 'username' field.
+    """
     # Using user_id from the current active user
     user_id = current_user.user_id
 
@@ -202,6 +213,18 @@ async def change_password(
     new_password: str = Body(... , embed=True),
     db: Session = Depends(get_session)
 ):
+    """
+    Change the password for the current user.
+
+    Args:
+        current_user (UserDetails): The details of the current user.
+        old_password (str): The current password of the user.
+        new_password (str): The new password to be set for the user.
+        db (Session): The database session.
+
+    Returns:
+        dict: A dictionary containing the message "Password successfully changed."
+    """
     user = db.query(User).filter(User.username == current_user.username).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User not found")

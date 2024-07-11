@@ -30,6 +30,17 @@ async def get_fish_count_per_zone(
     time_interval: str = Query(..., description="Time interval: week, month, or year"),
     session: Session = Depends(get_session)
 ):
+    """
+    Retrieves the fish count per zone for the most recent period within the specified time interval.
+
+    Args:
+        current_user (UserDetails): The details of the current user.
+        time_interval (str): The time interval to consider. Valid values are 'week', 'month', or 'year'.
+        session (Session): The database session.
+
+    Returns:
+        List[FishCountPerZone]: A list of FishCountPerZone objects representing the fish count per zone.
+    """
     # Determine the column and the period to extract based on the time_interval parameter
     if time_interval == "week":
         period_column = func.extract('week', Event.date)
@@ -75,6 +86,19 @@ async def get_fish_caught_by_time_range(
     time_range: TimeRange = Query(...), 
     merged: bool = Query(...), 
     session: Session = Depends(get_session)):
+    """
+    Retrieves the fish caught by the current user within a specified time range.
+
+    Args:
+        current_user (UserDetails): The details of the current user.
+        time_range (TimeRange): The time range for which to retrieve the fish caught.
+        merged (bool): Flag indicating whether to merge the results or not.
+        session (Session): The database session.
+
+    Returns:
+        List[Union[FishCaughtByWeekMerged, FishCaughtByWeek, FishCaughtByMonthMerged, FishCaughtByMonth, FishCaughtByYearMerged, FishCaughtByYear]]: 
+        A list of objects representing the fish caught, based on the time range and merged flag.
+    """
 
     # Base query modified to count Fish ids
     query = session.query(
@@ -140,6 +164,20 @@ async def get_last_n_events(
     n: int = Query(10, description="Number of last events to be returned (-1 for all events). Excluding 0."),
     session: Session = Depends(get_session)
 ):
+    """
+    Retrieve the last N events for the current user.
+
+    Args:
+        current_user (UserDetails): The details of the current user.
+        n (int, optional): Number of last events to be returned (-1 for all events). Excluding 0. Defaults to 10.
+        session (Session, optional): The database session. Defaults to Depends(get_session).
+
+    Raises:
+        HTTPException: If the number of events to fetch is 0.
+
+    Returns:
+        List[EventSpec]: The details of the last N events.
+    """
     if n == 0:
         raise HTTPException(status_code=400, detail="Number of events to fetch cannot be 0.")
 
